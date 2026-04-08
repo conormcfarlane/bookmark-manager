@@ -3,8 +3,18 @@ import type { Bookmark, BookmarkData } from "../types/bookmarkTypes";
 import iconBM from "../images/logo-light-theme.svg";
 import iconHome from "../images/icon-home.svg";
 import iconArchive from "../images/icon-archive.svg";
+import type React from "react";
 
-export default function SideBar() {
+// SideBar props(read+update)
+type SideBarProps = {
+  selectedTags: string[];
+  setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
+};
+
+export default function SideBar({
+  selectedTags,
+  setSelectedTags,
+}: SideBarProps) {
   // imported data
   const bookmarkData: BookmarkData = bookmarkDataJson;
   // Remove duplicated tags..flatMap combines all arrays to create 1 big array instaed.
@@ -13,9 +23,24 @@ export default function SideBar() {
   );
   //  set method is what creates a unquie array
   const uniqueTags = [...new Set(allTags)].sort((a, b) => a.localeCompare(b));
-  console.log(uniqueTags);
+
+  // Handler for setting Tag change
+  const handleTagChange = (tag: string, checked: boolean) => {
+    setSelectedTags((prev) => {
+      if (checked) {
+        return prev.includes(tag) ? prev : [...prev, tag];
+      }
+      return prev.filter((t) => t !== tag);
+    });
+  };
+
+  // Count Logic
+  const countForTag = (tag: string) => {
+    return bookmarkData.bookmarks.filter((b) => b.tags.includes(tag)).length;
+  };
+
   return (
-    <section className="px-4">
+    <section className="px-4 bg-white hidden">
       {/* Title section */}
       <div className="flex gap-2 p-3">
         <img src={iconBM} alt="" />
@@ -44,11 +69,16 @@ export default function SideBar() {
             >
               <div className="flex items-center gap-2">
                 {" "}
-                <input type="checkbox" className="w-4 h-4 rounded-lg" />
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 rounded-lg"
+                  checked={selectedTags.includes(tag)}
+                  onChange={(e) => handleTagChange(tag, e.target.checked)}
+                />
                 <p className="leading-none relative bottom-px">{tag}</p>
               </div>
 
-              <p>counter</p>
+              <p className="px-2 bg-teal-100 rounded-full text-sm">{countForTag(tag)}</p>
             </div>
           );
         })}
