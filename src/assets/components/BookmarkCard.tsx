@@ -27,7 +27,7 @@ export default function BookmarkCard({ bookmark }: BookmarkCardProps) {
   }) as Record<string, string>;
   const faviconSrc = getFaviconSrc(bookmark.favicon, favionModules);
   return (
-    <div className="flex flex-col justify-between bg-white rounded-xl h-68">
+    <div className="flex flex-col justify-between bg-white rounded-xl min-h-70">
       <div className="px-4 pt-4">
         <div className="flex justify-between py-2 border-b border-teal-500/20 ">
           {/* title , url & menu button */}

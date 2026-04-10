@@ -7,6 +7,7 @@ import type { BookmarkData } from "./assets/types/bookmarkTypes";
 
 function App() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const bookmarkData: BookmarkData = bookmarkDataJson;
   const filteredBookmarks =
     selectedTags.length === 0
@@ -16,16 +17,22 @@ function App() {
         );
   return (
     <div className="mx-auto bg-teal-100 min-h-screen">
-      <Header />
-      <div className="grid">
-        <SideBar
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-        />
-        <Bookmarks
-          selectedTags={selectedTags}
-          filteredBookmarks={filteredBookmarks}
-        />
+      <div className="grid lg:grid-cols-[20%_80%]">
+        <div className="">
+          <SideBar
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+            isMenuOpen={isMenuOpen}
+            setIsMenuOpen={setIsMenuOpen}
+          />
+        </div>
+        <div>
+          <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+          <Bookmarks
+            selectedTags={selectedTags}
+            filteredBookmarks={filteredBookmarks}
+          />
+        </div>
       </div>
     </div>
   );

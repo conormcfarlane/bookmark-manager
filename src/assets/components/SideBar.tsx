@@ -3,17 +3,22 @@ import type { Bookmark, BookmarkData } from "../types/bookmarkTypes";
 import iconBM from "../images/logo-light-theme.svg";
 import iconHome from "../images/icon-home.svg";
 import iconArchive from "../images/icon-archive.svg";
+import iconExit from "../images/icon-close.svg";
 import type React from "react";
 
 // SideBar props(read+update)
 type SideBarProps = {
   selectedTags: string[];
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
+  isMenuOpen: boolean;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function SideBar({
   selectedTags,
   setSelectedTags,
+  isMenuOpen,
+  setIsMenuOpen,
 }: SideBarProps) {
   // imported data
   const bookmarkData: BookmarkData = bookmarkDataJson;
@@ -40,10 +45,22 @@ export default function SideBar({
   };
 
   return (
-    <section className="px-4 bg-white hidden">
+    <section
+      className={
+        "bg-white px-4 min-h-screen overflow-y-auto " +
+        (isMenuOpen ? "fixed inset-y-0 left-0 z-50 w-4/5 md:w-2/5" : "hidden") +
+        " lg:static lg:block lg:w-auto lg:h-auto lg:overflow-visible lg:z-auto"
+      }
+    >
       {/* Title section */}
-      <div className="flex gap-2 p-3">
+      <div className="flex gap-2 p-3 justify-between">
         <img src={iconBM} alt="" />
+        <img
+          src={iconExit}
+          alt=""
+          className="cursor-pointer"
+          onClick={() => setIsMenuOpen((prevMode) => !prevMode)}
+        />
       </div>
       {/* Home & Archive */}
 
@@ -78,7 +95,9 @@ export default function SideBar({
                 <p className="leading-none relative bottom-px">{tag}</p>
               </div>
 
-              <p className="px-2 bg-teal-100 rounded-full text-sm">{countForTag(tag)}</p>
+              <p className="px-2 bg-teal-100 rounded-full text-sm">
+                {countForTag(tag)}
+              </p>
             </div>
           );
         })}

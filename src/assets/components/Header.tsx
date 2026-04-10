@@ -2,13 +2,20 @@ import iconHamburger from "../images/icon-menu-hamburger.svg";
 import iconSearch from "../images/icon-search.svg";
 import iconAdd from "../images/icon-add.svg";
 import avatar from "../images/image-avatar.webp";
-export default function Header() {
+
+type headerProps = {
+  isMenuOpen: boolean;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+export default function Header({ isMenuOpen, setIsMenuOpen }: headerProps) {
+  console.log(isMenuOpen);
   return (
-    <section className="flex gap-2.5 px-4 py-3 dark:bg-teal-950 justify-between sm:px-8">
+    <section className="flex gap-2.5 px-4 py-3 dark:bg-teal-950 justify-between sm:px-8 ">
       <div className="flex flex-1 gap-2.5 sm:max-w-1/2 ">
         <button
           aria-label="Toggle Menu"
-          className="p-2.5 border border-teal-600 rounded-lg"
+          className="p-2.5 border border-teal-600 rounded-lg cursor-pointer lg:hidden"
+          onClick={() => setIsMenuOpen((prevMode) => !prevMode)}
         >
           <img src={iconHamburger} alt="" className="dark:invert" />
         </button>
