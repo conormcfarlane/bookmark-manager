@@ -58,7 +58,7 @@ export default function SideBar({
         <img
           src={iconExit}
           alt=""
-          className="cursor-pointer"
+          className="cursor-pointer lg:hidden"
           onClick={() => setIsMenuOpen((prevMode) => !prevMode)}
         />
       </div>

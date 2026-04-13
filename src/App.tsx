@@ -7,16 +7,20 @@ import type { BookmarkData } from "./assets/types/bookmarkTypes";
 
 function App() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>("");
   const bookmarkData: BookmarkData = bookmarkDataJson;
-  const filteredBookmarks =
-    selectedTags.length === 0
-      ? bookmarkData.bookmarks
-      : bookmarkData.bookmarks.filter((bookmark) =>
-          selectedTags.every((tag) => bookmark.tags.includes(tag)),
-        );
+  const filteredBookmarks = bookmarkData.bookmarks.filter((bookmark) => {
+    const matchesTags =
+      selectedTags.length === 0 ||
+      selectedTags.every((tag) => bookmark.tags.includes(tag));
+    const matchesSearch = bookmark.title
+      .toLowerCase()
+      .includes(searchValue.toLowerCase().trim());
+    return matchesTags && matchesSearch;
+  });
   return (
-    <div className="mx-auto bg-teal-100 min-h-screen">
+    <div className="mx-auto bg-teal-100 min-h-screen pb-20">
       <div className="grid lg:grid-cols-[20%_80%]">
         <div className="">
           <SideBar
@@ -26,8 +30,13 @@ function App() {
             setIsMenuOpen={setIsMenuOpen}
           />
         </div>
-        <div>
-          <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        <div className="space-y-6 md:space-y-8">
+          <Header
+            isMenuOpen={isMenuOpen}
+            setIsMenuOpen={setIsMenuOpen}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
           <Bookmarks
             selectedTags={selectedTags}
             filteredBookmarks={filteredBookmarks}

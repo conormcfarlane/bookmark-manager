@@ -6,9 +6,15 @@ import avatar from "../images/image-avatar.webp";
 type headerProps = {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  searchValue: string;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 };
-export default function Header({ isMenuOpen, setIsMenuOpen }: headerProps) {
-  console.log(isMenuOpen);
+export default function Header({
+  isMenuOpen,
+  setIsMenuOpen,
+  searchValue,
+  setSearchValue,
+}: headerProps) {
   return (
     <section className="flex gap-2.5 px-4 py-3 dark:bg-teal-950 justify-between sm:px-8 ">
       <div className="flex flex-1 gap-2.5 sm:max-w-1/2 ">
@@ -25,6 +31,8 @@ export default function Header({ isMenuOpen, setIsMenuOpen }: headerProps) {
             type="text"
             placeholder="Search by title....."
             className=" text-preset-4-medium outline-none cursor-pointer w-full dark:placeholder-neutral-100 dark:text-neutral-100 "
+            value={searchValue}
+            onChange={(event) => setSearchValue(event?.target.value)}
           />
         </div>
       </div>
