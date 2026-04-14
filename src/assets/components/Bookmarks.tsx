@@ -20,20 +20,20 @@ export default function Bookmarks({ filteredBookmarks }: BookmarkProps) {
   const sortedFilteredBookmarks =
     activeSort === "recentlyAdded"
       ? [...filteredBookmarks].sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-        )
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      )
       : activeSort === "recentlyVisited"
         ? [...filteredBookmarks].sort((a, b) => {
-            const bTime = b.lastVisited
-              ? new Date(b.lastVisited).getTime()
-              : -Infinity;
-            // had to use -Infinity to make sure if no lastVisited date existed that it would be rankable as lastVisted could be null
-            const aTime = a.lastVisited
-              ? new Date(a.lastVisited).getTime()
-              : -Infinity;
-            return bTime - aTime;
-          })
+          const bTime = b.lastVisited
+            ? new Date(b.lastVisited).getTime()
+            : -Infinity;
+          // had to use -Infinity to make sure if no lastVisited date existed that it would be rankable as lastVisted could be null
+          const aTime = a.lastVisited
+            ? new Date(a.lastVisited).getTime()
+            : -Infinity;
+          return bTime - aTime;
+        })
         : activeSort === "mostVisited"
           ? [...filteredBookmarks].sort((a, b) => b.visitCount - a.visitCount)
           : filteredBookmarks;
@@ -41,22 +41,25 @@ export default function Bookmarks({ filteredBookmarks }: BookmarkProps) {
     <section className="px-4 sm:px-8 space-y-5">
       <div className="flex justify-between items-center">
         <p className="text-preset-2">All bookmarks</p>
-        <button className=" relative flex items-center bg-white rounded-lg border py-2.5 px-3 gap-2 border-teal-500" onClick={() => setIsMenuOpen((prev) => != prev)}>
-          <img src={iconSort} alt="sort icon" className="" />
+        <button className=" relative flex items-center bg-white rounded-lg border py-2.5 px-3 gap-2 border-teal-500" onClick={() => setIsMenuOpen((prevMode) => !prevMode)}>
+          <img src={iconSort} alt="sort icon" />
           <p className="text-preset-3">Sort By</p>
           <div className="absolute whitespace-nowrap right-0 top-0 translate-y-1/2 bg-white rounded-lg border border-teal-300">
-            {sortByObj.map((sortItem) => {
-              return (
-                <div className="flex gap-10 justify-between p-2 ">
-                  <p className="text-preset-4">{sortItem.label}</p>
-                  <input
-                    type="checkbox"
-                    checked={activeSort === sortItem.value}
-                    onChange={() => setActiveSort(sortItem.value)}
-                  />
-                </div>
-              );
-            })}
+            {isMenuOpen &&
+              sortByObj.map((sortItem) => {
+                return (
+                  <div key={sortItem.value} className="flex gap-10 justify-between p-2 ">
+                    <p className="text-preset-4">{sortItem.label}</p>
+                    <input
+                      type="checkbox"
+                      checked={activeSort === sortItem.value}
+                      onChange={() => setActiveSort(sortItem.value)}
+                    />
+                  </div>
+                );
+              })
+            }
+
           </div>
         </button>
       </div>
