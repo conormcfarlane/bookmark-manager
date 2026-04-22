@@ -11,6 +11,12 @@ function App() {
   const [searchValue, setSearchValue] = useState<string>("");
 
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const handleDelete = async (id: string) => {
+    const { error } = await supabase.from('bookmarks').delete().eq('id', id);
+    if (error) { console.log(error); return; }
+    setBookmarks((prev) => prev.filter((a) => a.id != id))
+  }
+
 
   useEffect(() => {
     const fetchBookmarks = async () => {
@@ -57,6 +63,7 @@ function App() {
           <Bookmarks
             selectedTags={selectedTags}
             filteredBookmarks={filteredBookmarks}
+            onDelete={handleDelete}
           />
         </div>
       </div>

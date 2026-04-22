@@ -6,9 +6,10 @@ import { useState } from "react";
 type BookmarkProps = {
   selectedTags: string[];
   filteredBookmarks: Bookmark[];
+  onDelete: (id: string) => void;
 };
 
-export default function Bookmarks({ filteredBookmarks }: BookmarkProps) {
+export default function Bookmarks({ filteredBookmarks, onDelete }: BookmarkProps) {
   const [activeSort, setActiveSort] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const sortByObj = [
@@ -67,7 +68,7 @@ export default function Bookmarks({ filteredBookmarks }: BookmarkProps) {
         {sortedFilteredBookmarks.map((bookmark: Bookmark) => {
           return (
             <div key={bookmark.id}>
-              <BookmarkCard bookmark={bookmark} />
+              <BookmarkCard bookmark={bookmark} onDelete={onDelete}/>
             </div>
           );
         })}
