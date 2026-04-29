@@ -1,15 +1,14 @@
-export interface Bookmark{
-    id:string;
-    title:string;
-    url:string;
-    favicon:string;
-    description:string;
-    tags:string[];
-    pinned:boolean;
-    isArchived:boolean;
-    visitCount:number;
-    createdAt:string;
-    lastVisited:string | null;
+export interface Bookmark {
+    id: string;
+    title: string;
+    url: string;
+    favicon: string;
+    description: string;
+    tags: string[];
+    pinned: boolean;
+    visitCount: number;
+    createdAt: string;
+    lastVisited: string | null;
 }
 
 export interface BookmarkData {

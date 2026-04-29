@@ -26,9 +26,9 @@ export default function BookmarkCard({ bookmark, onDelete }: BookmarkCardProps) 
     ? formatShortDate(bookmark.createdAt)
     : "Never";
   const visitStats = [
-    { image: iconVisitCount, value: bookmark.visitCount },
-    { image: iconLastVisited, value: shortLastVisited },
-    { image: iconCreated, value: shortCreatedAt },
+    { id: "visit-count", image: iconVisitCount, value: bookmark.visitCount },
+    { id: "last-visited", image: iconLastVisited, value: shortLastVisited },
+    { id: "created-at", image: iconCreated, value: shortCreatedAt },
   ];
   const favionModules = import.meta.glob("../images/favicon-*.png", {
     eager: true,
@@ -93,7 +93,7 @@ export default function BookmarkCard({ bookmark, onDelete }: BookmarkCardProps) 
         <div className="flex gap-4 ">
           {visitStats.map((stat) => {
             return (
-              <div key={stat.value} className="flex gap-2">
+              <div key={stat.id} className="flex gap-2">
                 <div className="w-3 flex items-center">
                   <img src={stat.image} alt="" className="w-full" />
                 </div>

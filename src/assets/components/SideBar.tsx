@@ -1,5 +1,4 @@
-import bookmarkDataJson from "../data/data.json";
-import type { Bookmark, BookmarkData } from "../types/bookmarkTypes";
+import type { Bookmark } from "../types/bookmarkTypes";
 import iconBM from "../images/logo-light-theme.svg";
 import iconHome from "../images/icon-home.svg";
 import iconArchive from "../images/icon-archive.svg";
@@ -8,6 +7,7 @@ import type React from "react";
 
 // SideBar props(read+update)
 type SideBarProps = {
+  bookmarks: Bookmark[];
   selectedTags: string[];
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
   isMenuOpen: boolean;
@@ -15,15 +15,14 @@ type SideBarProps = {
 };
 
 export default function SideBar({
+  bookmarks,
   selectedTags,
   setSelectedTags,
   isMenuOpen,
   setIsMenuOpen,
 }: SideBarProps) {
-  // imported data
-  const bookmarkData: BookmarkData = bookmarkDataJson;
   // Remove duplicated tags..flatMap combines all arrays to create 1 big array instaed.
-  const allTags = bookmarkData.bookmarks.flatMap(
+  const allTags = bookmarks.flatMap(
     (bookmark: Bookmark) => bookmark.tags,
   );
   //  set method is what creates a unquie array
@@ -41,7 +40,7 @@ export default function SideBar({
 
   // Count Logic
   const countForTag = (tag: string) => {
-    return bookmarkData.bookmarks.filter((b) => b.tags.includes(tag)).length;
+    return bookmarks.filter((b) => b.tags.includes(tag)).length;
   };
 
   return (

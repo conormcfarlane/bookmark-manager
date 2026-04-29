@@ -8,12 +8,13 @@ type headerProps = {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
   searchValue: string;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  onOpenAdd: () => void;
 };
 export default function Header({
-  isMenuOpen,
   setIsMenuOpen,
   searchValue,
   setSearchValue,
+  onOpenAdd,
 }: headerProps) {
   return (
     <section className="flex gap-2.5 px-4 py-3 dark:bg-teal-950 justify-between sm:px-8 ">
@@ -40,6 +41,7 @@ export default function Header({
         <button
           aria-label="add bookmark"
           className="flex items-center bg-teal-800 rounded-lg p-2.5 border-2 border-teal-600 gap-2 "
+          onClick={onOpenAdd}
         >
           <img src={iconAdd} alt="" className="invert w-4.5 self-center" />
           <p className="text-neutral-100 text-preset-3 hidden sm:block">
