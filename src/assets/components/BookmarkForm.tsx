@@ -24,10 +24,10 @@ export default function BookmarkForm({ onSubmit, isLoading, error, onCancel }: B
             <div>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <div><label htmlFor="">Title *</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} /></div>
-                        <div><label htmlFor="">URL *</label><input type="text" value={url} onChange={(e) => setUrl(e.target.value)} /></div>
-                        <div><label htmlFor="">Description *</label><input type="text" value={description} onChange={(e) => setDescription(e.target.value)} /></div>
-                        <div><label htmlFor="">Tags *</label><input type="text" placeholder="E.g.. Design, Learning, Tools" value={tags} onChange={(e) => setTags(e.target.value)} /></div>
+                        <div className="flex flex-col"><label htmlFor="">Title *</label><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="p-2 border" /></div>
+                        <div className="flex flex-col" ><label htmlFor="">URL *</label><input type="text" value={url} onChange={(e) => setUrl(e.target.value)} /></div>
+                        <div className="flex flex-col" ><label htmlFor="">Description *</label><input type="text" value={description} onChange={(e) => setDescription(e.target.value)} /></div>
+                        <div className="flex flex-col" ><label htmlFor="">Tags *</label><input type="text" placeholder="E.g.. Design, Learning, Tools" value={tags} onChange={(e) => setTags(e.target.value)} /></div>
                     </div>
                     <div>
                         <button type="button" onClick={onCancel}>Cancel</button>

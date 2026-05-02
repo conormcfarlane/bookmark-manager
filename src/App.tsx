@@ -83,8 +83,8 @@ function App() {
     setIsAddOpen(false);
   }
   return (
-    <div className="mx-auto bg-teal-100 min-h-screen pb-20">
-      <div className="grid lg:grid-cols-[20%_80%]">
+    <div className=" mx-auto bg-teal-100 min-h-screen pb-20">
+      <div className=" grid lg:grid-cols-[20%_80%]">
         <div className="">
           <SideBar
             bookmarks={bookmarks}
@@ -108,12 +108,15 @@ function App() {
             onDelete={handleDelete}
           />
         </div>
-        {isAddOpen && (
-          <BookmarkForm onSubmit={handleAddBookmark}
-            isLoading={isSaving}
-            error={saveError}
-            onCancel={() => setIsAddOpen(false)} />
-        )}
+        <div className="absolute bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          {isAddOpen && (
+            <BookmarkForm onSubmit={handleAddBookmark}
+              isLoading={isSaving}
+              error={saveError}
+              onCancel={() => setIsAddOpen(false)} />
+          )}
+        </div>
+
       </div>
     </div>
   );
